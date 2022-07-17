@@ -50,7 +50,7 @@ const UserPage: NextPage<{ users: User[], todos: Todo[] }> = ({ users, todos }) 
                 </div>
                 <div className='col-span-10 bg-gray-200'>
                     <div style={{ height: '100vh', overflowY: 'scroll' }}>
-                        {userTodos.map(t => <TodoCard todo={t} />)}
+                        {userTodos.map(t => <TodoCard key={t.id} todo={t} />)}
                     </div>
                 </div>
             </div>
