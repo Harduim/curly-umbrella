@@ -28,11 +28,24 @@ const UserNavItem:
 
 
 const UserPage: NextPage<{ users: User[], todos: Todo[] }> = ({ users, todos }) => {
-    const filterTodos = (userId: number) => todos.filter(t => t.userId === userId)
+    const filterTodos = (userId: number) => {
+        const _todos = todos.filter(t => t.userId === userId)
+        return _todos.sort((a, b) => Number(a.completed) - Number(b.completed))
+    }
     const [activeUser, setActiveUser] = useState(users[0].id)
     const [userTodos, setUserTodos] = useState(filterTodos(activeUser))
 
     useEffect(() => setUserTodos(filterTodos(activeUser)), [activeUser])
+
+    const setCompleted = (id: number) => {
+        const todo = userTodos.find(t => t.id === id)
+        if (!todo) return
+        const _todos = userTodos.filter(t => t.id !== id)
+        todo.completed = !todo.completed
+        const newTodos = [todo, ..._todos].sort((a, b) => Number(a.completed) - Number(b.completed))
+        setUserTodos(newTodos)
+    }
+
 
     return (
         <Layout>
@@ -50,7 +63,7 @@ const UserPage: NextPage<{ users: User[], todos: Todo[] }> = ({ users, todos }) 
                 </div>
                 <div className='col-span-10 bg-gray-200'>
                     <div style={{ height: '100vh', overflowY: 'scroll' }}>
-                        {userTodos.map(t => <TodoCard key={t.id} todo={t} />)}
+                        {userTodos.map(t => <TodoCard key={t.id} todo={t} setCompleted={setCompleted} />)}
                     </div>
                 </div>
             </div>
