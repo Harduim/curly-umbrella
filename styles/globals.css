@@ -1,6 +1,8 @@
+
+@tailwind utilities;
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
+
 
 @layer components {
   .card {
@@ -10,4 +12,8 @@
     margin: theme('spacing.4');
     box-shadow: theme('boxShadow.md');
   }
-}
+  .grid-container {
+    @apply grid grid-cols-12 h-screen w-full gap-1
+  }
+
+};

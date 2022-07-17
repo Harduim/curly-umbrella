@@ -1,7 +1,9 @@
 import type { NextPage, GetStaticProps } from 'next'
+import fetchStaticProps from './fetchStaticProps'
 
 import Layout from './layout'
 import { Todo, User } from './interfaces'
+import TodoCard from './TodoCard'
 
 const UserCard: NextPage<{ user: User }> = ({ user }) => {
   return <div className="w-full card">
@@ -24,15 +26,6 @@ const UserCard: NextPage<{ user: User }> = ({ user }) => {
 
 }
 
-const TodoCard: NextPage<{ todo: Todo }> = ({ todo }) => {
-  return <div className="w-full card">
-    <li>{todo.id}</li>
-    <li>{todo.completed}</li>
-    <li>{todo.title}</li>
-  </div>
-
-}
-
 const Home: NextPage<{ users: User[], todos: Todo[] }> = ({ users, todos }) => {
   return (
     <Layout>
@@ -51,15 +44,5 @@ const Home: NextPage<{ users: User[], todos: Todo[] }> = ({ users, todos }) => {
 export default Home
 
 
-export const getStaticProps: GetStaticProps = async () => {
-  const todos: Todo[] = await (await fetch('https://jsonplaceholder.typicode.com/todos')).json()
-  const users: User[] = await (await fetch('https://jsonplaceholder.typicode.com/users')).json()
+export const getStaticProps: GetStaticProps = fetchStaticProps
 
-
-  return {
-    props: {
-      users,
-      todos
-    }
-  }
-}
