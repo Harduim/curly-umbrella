@@ -2,7 +2,7 @@ import type { NextPage, GetStaticProps } from 'next'
 import fetchStaticProps from './fetchStaticProps'
 
 import Layout from './layout'
-import { Todo, User } from './interfaces'
+import { Todo, User } from '../components/interfaces'
 
 
 const Home: NextPage<{ users: User[], todos: Todo[] }> = ({ users, todos }) => {

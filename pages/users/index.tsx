@@ -1,6 +1,6 @@
 import type { NextPage, GetStaticProps } from 'next'
 import fetchStaticProps from '../fetchStaticProps'
-import { User, Todo } from '../interfaces'
+import { User, Todo } from '../../components/interfaces'
 import Layout from '../layout'
 import { useState, useEffect } from 'react'
 import type { Dispatch, SetStateAction } from 'react'
