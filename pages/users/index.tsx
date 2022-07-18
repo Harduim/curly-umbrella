@@ -34,7 +34,7 @@ const UserNavItem:
 
 const UserPage: NextPage<UsersTodos> = ({ users: initialUsers, todos: initialTodos }) => {
 
-    const { users: globalUsers, todos: globalTodos, setUsers, setTodos, setCompleted } = useContext<IGlobalContext>(GlobalContext)
+    const { users: globalUsers, todos: globalTodos, setUsers, setTodos } = useContext<IGlobalContext>(GlobalContext)
     const users = globalUsers || initialUsers
     const todos = globalTodos || initialTodos
 
@@ -79,10 +79,7 @@ const UserPage: NextPage<UsersTodos> = ({ users: initialUsers, todos: initialTod
                 </div>
                 <div className='col-span-10 bg-gray-200'>
                     <div style={{ height: '100vh', overflowY: 'scroll' }}>
-                        {userTodos.map(t => {
-                            if (!setCompleted) return null
-                            return <TodoCard key={t.id} todo={t} setCompleted={setCompleted} />
-                        })}
+                        {userTodos.map(t => { return <TodoCard key={t.id} todo={t} /> })}
                     </div>
                 </div>
             </div>

@@ -1,9 +1,11 @@
-import { useState } from "react"
 import { NextPage } from "next"
-import { Todo } from "./interfaces"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faToggleOn, faToggleOff, faPenToSquare } from "@fortawesome/free-solid-svg-icons"
+import { useState, useContext } from "react"
 import type { Dispatch, SetStateAction } from 'react'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faToggleOn, faToggleOff, faPenToSquare, faDeleteLeft, faTrash } from "@fortawesome/free-solid-svg-icons"
+
+import { Todo } from "./interfaces"
+import GlobalContext from "../context/global"
 
 
 const ItemComponent:
@@ -16,6 +18,7 @@ const ItemComponent:
   }> = ({ isEditing, setTitle, itemTitle, setEditing }) => {
 
     const [innerTitle, setInnerTitle] = useState(itemTitle)
+    const [justDeleted, setJustDeleted] = useState(false)
 
     const handleClick = () => {
       setTitle(innerTitle)
@@ -38,12 +41,22 @@ const ItemComponent:
           className="text-lg text-gray-800 placeholder-gray-800 border rounded-lg focus:shadow-outline"
           type="text"
           value={innerTitle}
-          onChange={t => setInnerTitle(t.target.value)}
+          onChange={t => {
+            setInnerTitle(t.target.value)
+            setJustDeleted(false)
+          }}
           onClick={() => {
             if (itemTitle == innerTitle) return
+            if (justDeleted) return
             handleClick()
           }}
         />
+        <button onClick={() => {
+          setInnerTitle('')
+          setJustDeleted(true)
+        }}>
+          <FontAwesomeIcon icon={faDeleteLeft} className='w-7 h-7 inline ml-1 mr-1' />
+        </button>
       </>
     )
 
@@ -57,20 +70,23 @@ const ItemComponent:
 
 
 const TodoCard:
-  NextPage<{
-    todo: Todo,
-    setCompleted: Function
-  }> = ({ todo, setCompleted }) => {
+  NextPage<{ todo: Todo }> = ({ todo }) => {
     const completedClass = todo.completed ? 'border-green-700' : 'border-red-800'
     const toggleIcon = todo.completed ? faToggleOn : faToggleOff
     const [isEditing, setEditing] = useState(false)
     const [title, setTitle] = useState(todo.title)
+    const { handleCompleteTodo, handleDeleteTodo } = useContext(GlobalContext)
+
+    if (!handleCompleteTodo || !handleDeleteTodo) return null
 
     return (
       <div className={`${completedClass} card border-solid border-b-4`}>
         <div className="">
-          <button onClick={() => setCompleted(todo.id)}>
-            <FontAwesomeIcon icon={toggleIcon} className='w-7 h-7 inline' />
+          <button onClick={() => handleCompleteTodo(todo.id)}>
+            <FontAwesomeIcon icon={toggleIcon} className='w-7 h-7 inline ml-1 mr-1' />
+          </button>
+          <button onClick={() => handleDeleteTodo(todo.id)}>
+            <FontAwesomeIcon icon={faTrash} className='w-5 h-5 inline ml-1 mr-1' />
           </button>
           <ItemComponent
             isEditing={isEditing}
