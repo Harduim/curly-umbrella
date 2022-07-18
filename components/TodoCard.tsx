@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { NextPage } from "next"
-import { Todo } from "../components/interfaces"
+import { Todo } from "./interfaces"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faToggleOn, faToggleOff, faPenToSquare } from "@fortawesome/free-solid-svg-icons"
 import type { Dispatch, SetStateAction } from 'react'

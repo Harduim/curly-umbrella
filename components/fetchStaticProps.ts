@@ -1,5 +1,5 @@
 import type { GetStaticProps } from 'next'
-import { User, Todo } from '../components/interfaces'
+import { User, Todo } from './interfaces'
 
 const fetchStaticProps: GetStaticProps = async () => {
   const todos: Todo[] = await (await fetch('https://jsonplaceholder.typicode.com/todos')).json()

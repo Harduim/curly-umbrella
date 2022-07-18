@@ -1,10 +1,10 @@
 import type { NextPage, GetStaticProps } from 'next'
-import fetchStaticProps from '../fetchStaticProps'
+import fetchStaticProps from '../../components/fetchStaticProps'
 import { User, Todo } from '../../components/interfaces'
-import Layout from '../layout'
+import Layout from '../../components/layout'
 import { useState, useEffect } from 'react'
 import type { Dispatch, SetStateAction } from 'react'
-import TodoCard from '../TodoCard'
+import TodoCard from '../../components/TodoCard'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 

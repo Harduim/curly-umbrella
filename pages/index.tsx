@@ -1,7 +1,7 @@
 import type { NextPage, GetStaticProps } from 'next'
-import fetchStaticProps from './fetchStaticProps'
+import fetchStaticProps from '../components/fetchStaticProps'
 
-import Layout from './layout'
+import Layout from '../components/layout'
 import { Todo, User } from '../components/interfaces'
 
 
