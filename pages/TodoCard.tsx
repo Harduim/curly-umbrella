@@ -59,7 +59,7 @@ const ItemComponent:
 const TodoCard:
   NextPage<{
     todo: Todo,
-    setCompleted: Dispatch<SetStateAction<number>>
+    setCompleted: Function
   }> = ({ todo, setCompleted }) => {
     const completedClass = todo.completed ? 'border-green-700' : 'border-red-800'
     const toggleIcon = todo.completed ? faToggleOn : faToggleOff
