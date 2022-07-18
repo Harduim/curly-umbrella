@@ -17,12 +17,15 @@ const UserNavItem:
         const isActive = activeUser === user.id
 
         return (
-            <button
-                className={`max-auto p-1 ${isActive ? 'bg-gray-900' : ''} hover:bg-gray-700 w-full`}
-                onClick={() => setActive(user.id)}
-            >
-                {user.name}
-            </button>
+            <div className='max-auto p-1'>
+                <div className={`${isActive ? 'border-r-2' : ''} hover:bg-gray-700`}>
+                    <button
+                        onClick={() => setActive(user.id)}
+                    >
+                        {user.name}
+                    </button>
+                </div>
+            </div>
         )
     }
 
@@ -72,10 +75,10 @@ const UserPage: NextPage<{ users: User[], todos: Todo[] }> = ({ users, todos }) 
 
 
             <button
-              title="Go To Top"
-              className="fixed z-90 bottom-8 right-8 border-0 w-16 h-16 rounded-full drop-shadow-md bg-green-900 text-white text-3xl font-bold"
-             >
-                <FontAwesomeIcon icon={faPlus} className="w-8 mx-auto"/>
+                title="Go To Top"
+                className="fixed z-90 bottom-8 right-8 border-0 w-16 h-16 rounded-full drop-shadow-md bg-green-900 text-white text-3xl font-bold"
+            >
+                <FontAwesomeIcon icon={faPlus} className="w-8 mx-auto" />
             </button>
 
 
