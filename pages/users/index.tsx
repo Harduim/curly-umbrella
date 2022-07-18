@@ -40,7 +40,13 @@ const UserPage: NextPage<{ users: User[], todos: Todo[] }> = ({ users, todos }) 
     const [activeUser, setActiveUser] = useState(users[0].id)
     const [userTodos, setUserTodos] = useState(filterTodos(activeUser))
 
-    useEffect(() => setUserTodos(filterTodos(activeUser)), [activeUser])
+    useEffect(() => {
+        let _todos = todos.filter(t => t.userId === activeUser)
+        _todos = _todos.sort((a, b) => Number(a.completed) - Number(b.completed))
+        setUserTodos(_todos)
+    },
+        [activeUser, todos]
+    )
 
     const setCompleted = (id: number) => {
         const todo = userTodos.find(t => t.id === id)
