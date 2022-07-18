@@ -11,6 +11,7 @@ export interface IGlobalContext {
     setTodos?: Dispatch<SetStateAction<Todo[]>>
     handleCompleteTodo?: Function
     handleDeleteTodo?: Function
+    handleAddTodo?: Function
 }
 
 const GlobalContext = createContext<IGlobalContext>({})
@@ -30,8 +31,12 @@ export const GlobalProvider: FC<Props> = ({ children }) => {
 
     const handleDeleteTodo = (id: number) => setTodos(todos.filter(t => t.id !== id))
 
+    const handleAddTodo = (todo: Todo) => setTodos([todo, ...todos].sort((a, b) => Number(a.completed) - Number(b.completed)))
+
+
+
     return (
-        <GlobalContext.Provider value={{ users, todos, setUsers, setTodos, handleCompleteTodo, handleDeleteTodo }}>
+        <GlobalContext.Provider value={{ users, todos, setUsers, setTodos, handleCompleteTodo, handleDeleteTodo, handleAddTodo }}>
             {children}
         </GlobalContext.Provider>
     )
