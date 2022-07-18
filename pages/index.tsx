@@ -1,6 +1,7 @@
 import type { NextPage, GetStaticProps } from 'next'
-import fetchStaticProps from '../components/fetchStaticProps'
+
 import { useContext, useEffect } from 'react'
+import fetchStaticProps from '../components/fetchStaticProps'
 import Layout from '../components/layout'
 import { UsersTodos } from '../components/interfaces'
 import GlobalContext, { IGlobalContext } from '../context/global'
