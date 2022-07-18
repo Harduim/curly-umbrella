@@ -3,28 +3,7 @@ import fetchStaticProps from './fetchStaticProps'
 
 import Layout from './layout'
 import { Todo, User } from './interfaces'
-import TodoCard from './TodoCard'
 
-const UserCard: NextPage<{ user: User }> = ({ user }) => {
-  return <div className="w-full card">
-    <p>{user.name}</p>
-    <p>{user.username}</p>
-    <p>{user.email}</p>
-    <p>{user.phone}</p>
-    <p>{user.website}</p>
-    <p className='mt-4'>Address</p>
-    <div className='ml-4 mt-2'>
-      <p>{user.address.street}</p>
-      <p>{user.address.city}</p>
-    </div>
-    <p>Company</p>
-    <div className='ml-4 mt-2'>
-      <p>{user.company.name}</p>
-      <p>{user.company.bs}</p>
-    </div>
-  </div>
-
-}
 
 const Home: NextPage<{ users: User[], todos: Todo[] }> = ({ users, todos }) => {
   const filterTodos = (userId: number) => {
@@ -38,7 +17,7 @@ const Home: NextPage<{ users: User[], todos: Todo[] }> = ({ users, todos }) => {
       return (
         <div className='' key={u.id}>
           {u.name}
-          {userTodos.map(ut => <div>{ut.title}</div>)}
+          {userTodos.map(ut => <div key={ut.id}>{ut.title}</div>)}
         </div>
       )
     }
