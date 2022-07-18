@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Head from 'next/head'
 import { useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBars, faHome, faUsers, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faHome, faUsers, faUser } from '@fortawesome/free-solid-svg-icons'
 
 const Layout: NextPage<any> = ({ children }) => {
     const [isNavOpen, setNavOpen] = useState(true)

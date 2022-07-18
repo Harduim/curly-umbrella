@@ -21,3 +21,5 @@ export interface User {
         geo: { lat: number, lng: number }
     }
 }
+
+export interface UsersTodos { users: User[], todos: Todo[] }

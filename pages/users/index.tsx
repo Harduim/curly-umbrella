@@ -1,12 +1,14 @@
 import type { NextPage, GetStaticProps } from 'next'
-import fetchStaticProps from '../../components/fetchStaticProps'
-import { User, Todo } from '../../components/interfaces'
-import Layout from '../../components/layout'
-import { useState, useEffect } from 'react'
 import type { Dispatch, SetStateAction } from 'react'
-import TodoCard from '../../components/TodoCard'
+import { useState, useEffect, useContext } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+
+import fetchStaticProps from '../../components/fetchStaticProps'
+import { User, UsersTodos } from '../../components/interfaces'
+import Layout from '../../components/layout'
+import TodoCard from '../../components/TodoCard'
+import GlobalContext, { IGlobalContext } from '../../context/global'
 
 const UserNavItem:
     NextPage<{
@@ -30,14 +32,27 @@ const UserNavItem:
     }
 
 
+const UserPage: NextPage<UsersTodos> = ({ users: initialUsers, todos: initialTodos }) => {
 
+    const { users: globalUsers, todos: globalTodos, setUsers, setTodos, setCompleted } = useContext<IGlobalContext>(GlobalContext)
+    const users = globalUsers || initialUsers
+    const todos = globalTodos || initialTodos
 
-const UserPage: NextPage<{ users: User[], todos: Todo[] }> = ({ users, todos }) => {
+    useEffect(
+        () => {
+          if (!setTodos || !setUsers || !users || !todos) return
+          if (users?.length > 0 && todos?.length > 0) return
+          setTodos(initialTodos)
+          setUsers(initialUsers)
+        }, []
+      )
+
     const filterTodos = (userId: number) => {
         const _todos = todos.filter(t => t.userId === userId)
         return _todos.sort((a, b) => Number(a.completed) - Number(b.completed))
     }
-    const [activeUser, setActiveUser] = useState(users[0].id)
+    const firstUser = users[0]
+    const [activeUser, setActiveUser] = useState(firstUser?.id || 1)
     const [userTodos, setUserTodos] = useState(filterTodos(activeUser))
 
     useEffect(() => {
@@ -47,16 +62,6 @@ const UserPage: NextPage<{ users: User[], todos: Todo[] }> = ({ users, todos }) 
     },
         [activeUser, todos]
     )
-
-    const setCompleted = (id: number) => {
-        const todo = userTodos.find(t => t.id === id)
-        if (!todo) return
-        const _todos = userTodos.filter(t => t.id !== id)
-        todo.completed = !todo.completed
-        const newTodos = [todo, ..._todos].sort((a, b) => Number(a.completed) - Number(b.completed))
-        setUserTodos(newTodos)
-    }
-
 
     return (
         <Layout>
@@ -74,7 +79,10 @@ const UserPage: NextPage<{ users: User[], todos: Todo[] }> = ({ users, todos }) 
                 </div>
                 <div className='col-span-10 bg-gray-200'>
                     <div style={{ height: '100vh', overflowY: 'scroll' }}>
-                        {userTodos.map(t => <TodoCard key={t.id} todo={t} setCompleted={setCompleted} />)}
+                        {userTodos.map(t => {
+                            if (!setCompleted) return null
+                            return <TodoCard key={t.id} todo={t} setCompleted={setCompleted} />
+                        })}
                     </div>
                 </div>
             </div>
