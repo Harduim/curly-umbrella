@@ -22,19 +22,34 @@ const UserCard: NextPage<{ user: User }> = ({ user }) => {
       <p>{user.company.name}</p>
       <p>{user.company.bs}</p>
     </div>
-    </div>
+  </div>
 
 }
 
 const Home: NextPage<{ users: User[], todos: Todo[] }> = ({ users, todos }) => {
+  const filterTodos = (userId: number) => {
+    const _todos = todos.filter(t => t.userId === userId)
+    return _todos.sort((a, b) => Number(a.completed) - Number(b.completed))
+  }
+
+  const userBoards = users.map(
+    u => {
+      const userTodos = filterTodos(u.id)
+      return (
+        <div className='' key={u.id}>
+          {u.name}
+          {userTodos.map(ut => <div>{ut.title}</div>)}
+        </div>
+      )
+    }
+  )
+
+
   return (
     <Layout>
 
-      <div className="grid gap-4 grid-cols-2">
-        {users.map(u => <UserCard key={u.id} user={u} />)}
-      </div>
-      <div className="grid gap-4 grid-cols-3">
-        {todos.map(t => <TodoCard key={t.id} todo={t} />)}
+      <div className='card'>
+        {userBoards}
       </div>
 
     </Layout>
