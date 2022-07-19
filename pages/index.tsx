@@ -5,6 +5,7 @@ import fetchStaticProps from '../components/fetchStaticProps'
 import Layout from '../components/layout'
 import { UsersTodos } from '../components/interfaces'
 import GlobalContext, { IGlobalContext } from '../context/global'
+import TodoCard from '../components/TodoCard'
 
 
 const Home: NextPage<UsersTodos> = ({ users: initialUsers, todos: initialTodos }) => {
@@ -29,9 +30,9 @@ const Home: NextPage<UsersTodos> = ({ users: initialUsers, todos: initialTodos }
     u => {
       const userTodos = filterTodos(u.id)
       return (
-        <div className='' key={u.id}>
-          {u.name}
-          {userTodos?.map(ut => <div key={ut.id}>{ut.title}</div>)}
+        <div style={{minWidth: '30rem'}} className='w-300' key={u.id}>
+          <h1 className='capitalize m-2'>{u.name}</h1>
+          {userTodos?.map(ut => <TodoCard todo={ut} />)}
         </div>
       )
     }
@@ -39,11 +40,14 @@ const Home: NextPage<UsersTodos> = ({ users: initialUsers, todos: initialTodos }
 
   return (
     <Layout>
-
-      <div className='card'>
-        {userBoards}
+      <div
+        className=''
+        style={{ height: '100vh', overflowY: 'scroll', overflowX: 'scroll' }}
+      >
+        <div className='flex flex-nowrap'>
+          {userBoards}
+        </div>
       </div>
-
     </Layout>
   )
 }
