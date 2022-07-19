@@ -37,33 +37,35 @@ const ItemComponent:
     if (isEditing) return (
       <>
         {toggleIcon}
-        <input
-          className="text-lg text-gray-800 placeholder-gray-800 border rounded-lg focus:shadow-outline"
-          type="text"
-          value={innerTitle}
-          onChange={t => {
-            setInnerTitle(t.target.value)
-            setJustDeleted(false)
-          }}
-          onClick={() => {
-            if (itemTitle == innerTitle) return
-            if (justDeleted) return
-            handleClick()
-          }}
-        />
-        <button onClick={() => {
-          setInnerTitle('')
-          setJustDeleted(true)
-        }}>
-          <FontAwesomeIcon icon={faDeleteLeft} className='w-7 h-7 inline ml-1 mr-1' />
-        </button>
+        <div className="block lg:inline xl:inline">
+          <input
+            className="text-lg text-gray-800 placeholder-gray-800 border rounded-lg focus:shadow-outline"
+            type="text"
+            value={innerTitle}
+            onChange={t => {
+              setInnerTitle(t.target.value)
+              setJustDeleted(false)
+            }}
+            onClick={() => {
+              if (itemTitle == innerTitle) return
+              if (justDeleted) return
+              handleClick()
+            }}
+          />
+          <button onClick={() => {
+            setInnerTitle('')
+            setJustDeleted(true)
+          }}>
+            <FontAwesomeIcon icon={faDeleteLeft} className='w-7 h-7 inline ml-1 mr-1' />
+          </button>
+        </div>
       </>
     )
 
     return (
       <>
         {toggleIcon}
-        <span onClick={handleClick} className="capitalize">{itemTitle}</span>
+        <span onClick={handleClick} className="capitalize block lg:inline xl:inline">{itemTitle}</span>
       </>
     )
   }

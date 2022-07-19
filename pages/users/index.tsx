@@ -40,12 +40,12 @@ const UserPage: NextPage<UsersTodos> = ({ users: initialUsers, todos: initialTod
 
     useEffect(
         () => {
-          if (!setTodos || !setUsers || !users || !todos) return
-          if (users?.length > 0 && todos?.length > 0) return
-          setTodos(initialTodos)
-          setUsers(initialUsers)
+            if (!setTodos || !setUsers || !users || !todos) return
+            if (users?.length > 0 && todos?.length > 0) return
+            setTodos(initialTodos)
+            setUsers(initialUsers)
         }, []
-      )
+    )
 
     const filterTodos = (userId: number) => {
         const _todos = todos.filter(t => t.userId === userId)
@@ -66,7 +66,7 @@ const UserPage: NextPage<UsersTodos> = ({ users: initialUsers, todos: initialTod
     return (
         <Layout>
             <div className='grid-container'>
-                <div className='flex flex-col bg-gray-800 text-white col-span-2'>
+                <div className='flex flex-col bg-gray-800 text-white col-span-4 md:col-span-3 lg:col-span-2 xl:col-span-2'>
                     <div className='m-2'>Usuários</div>
                     {users.map(u => (
                         <UserNavItem
@@ -77,7 +77,7 @@ const UserPage: NextPage<UsersTodos> = ({ users: initialUsers, todos: initialTod
                         />
                     ))}
                 </div>
-                <div className='col-span-10 bg-gray-200'>
+                <div className='col-span-8 md:col-span-9 lg:col-span-10 xl:col-span-10 bg-gray-200'>
                     <div style={{ height: '100vh', overflowY: 'scroll' }}>
                         {userTodos.map(t => { return <TodoCard key={t.id} todo={t} /> })}
                     </div>
