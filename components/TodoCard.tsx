@@ -37,10 +37,16 @@ const ItemComponent:
     if (isEditing) return (
       <>
         {toggleIcon}
+        <button onClick={() => {
+          setInnerTitle('')
+          setJustDeleted(true)
+        }}>
+          <FontAwesomeIcon icon={faDeleteLeft} className='w-7 h-7 ml-1 mr-1 hidden md:inline' />
+        </button>
         <div className="block lg:inline xl:inline">
-          <input
-            className="text-lg text-gray-800 placeholder-gray-800 border rounded-lg focus:shadow-outline"
-            type="text"
+          <textarea
+            className="text-lg text-gray-800 placeholder-gray-800 border rounded-lg focus:shadow-outline w-full"
+            // type="textarea"
             value={innerTitle}
             onChange={t => {
               setInnerTitle(t.target.value)
@@ -52,12 +58,6 @@ const ItemComponent:
               handleClick()
             }}
           />
-          <button onClick={() => {
-            setInnerTitle('')
-            setJustDeleted(true)
-          }}>
-            <FontAwesomeIcon icon={faDeleteLeft} className='w-7 h-7 inline ml-1 mr-1' />
-          </button>
         </div>
       </>
     )
