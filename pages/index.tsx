@@ -32,7 +32,7 @@ const Home: NextPage<UsersTodos> = ({ users: initialUsers, todos: initialTodos }
       return (
         <div style={{minWidth: '30rem'}} className='w-300' key={u.id}>
           <h1 className='capitalize m-2'>{u.name}</h1>
-          {userTodos?.map(ut => <TodoCard todo={ut} />)}
+          {userTodos?.map(ut => <TodoCard key={`k_${ut.id}`} todo={ut} />)}
         </div>
       )
     }
