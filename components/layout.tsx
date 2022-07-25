@@ -2,13 +2,10 @@ import { NextPage } from 'next'
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Head from 'next/head'
-import { useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHome, faUsers, faUser } from '@fortawesome/free-solid-svg-icons'
 
 const Layout: NextPage<any> = ({ children }) => {
-    const [isNavOpen, setNavOpen] = useState(true)
-
     const router = useRouter();
 
     return (
@@ -44,7 +41,7 @@ const Layout: NextPage<any> = ({ children }) => {
                         </div>
                     </div>
                 </div>
-                <div className='grow'>
+                <div className='grow overflow-hidden'>
                     {children}
                 </div>
             </div>
