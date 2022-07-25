@@ -86,7 +86,7 @@ const UserPage: NextPage<UsersTodos> = ({ users: initialUsers, todos: initialTod
 
 
             <button
-                title="Go To Top"
+                title="Add Todo"
                 className="fixed z-90 bottom-8 right-8 border-0 w-16 h-16 rounded-full drop-shadow-md bg-green-900 text-white text-3xl font-bold"
             >
                 <FontAwesomeIcon icon={faPlus} className="w-8 mx-auto" />
