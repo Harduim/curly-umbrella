@@ -30,7 +30,7 @@ const Home: NextPage<UsersTodos> = ({ users: initialUsers, todos: initialTodos }
     u => {
       const userTodos = filterTodos(u.id)
       return (
-        <div style={{minWidth: '30rem'}} className='w-300' key={u.id}>
+        <div style={{minWidth: '30rem'}} className='w-300 bg-gray-200 border-spacing-1 m-2 rounded' key={u.id}>
           <h1 className='capitalize m-2'>{u.name}</h1>
           {userTodos?.map(ut => <TodoCard key={`k_${ut.id}`} todo={ut} />)}
         </div>
@@ -44,7 +44,7 @@ const Home: NextPage<UsersTodos> = ({ users: initialUsers, todos: initialTodos }
         className=''
         style={{ height: '100vh', overflowY: 'scroll', overflowX: 'scroll' }}
       >
-        <div className='flex flex-nowrap'>
+        <div className='flex flex-nowrap flex-row bg-white'>
           {userBoards}
         </div>
       </div>
