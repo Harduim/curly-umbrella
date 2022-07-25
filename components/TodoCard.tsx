@@ -26,7 +26,7 @@ const ItemComponent:
     }
 
     const toggleIcon = (
-      <button onClick={handleClick}>
+      <button title="Edit TODO" onClick={handleClick}>
         <FontAwesomeIcon
           icon={faPenToSquare}
           className={`w-6 h-6 inline ml-2 mr-2 text-${isEditing ? 'blue' : 'grey'}-900`}
@@ -36,14 +36,7 @@ const ItemComponent:
 
     if (isEditing) return (
       <>
-        {toggleIcon}
-        <button onClick={() => {
-          setInnerTitle('')
-          setJustDeleted(true)
-        }}>
-          <FontAwesomeIcon icon={faDeleteLeft} className='w-7 h-7 ml-1 mr-1 hidden md:inline' />
-        </button>
-        <div className="block lg:inline xl:inline">
+        <div className="block">
           <textarea
             className="text-lg text-gray-800 placeholder-gray-800 border rounded-lg focus:shadow-outline w-full"
             // type="textarea"
@@ -59,13 +52,20 @@ const ItemComponent:
             }}
           />
         </div>
+        <button title="Clear Text" onClick={() => {
+          setInnerTitle('')
+          setJustDeleted(true)
+        }}>
+          <FontAwesomeIcon icon={faDeleteLeft} className='w-7 h-7 ml-1 mr-1 hidden md:inline' />
+        </button>
+        {toggleIcon}
       </>
     )
 
     return (
       <>
+        <span onClick={handleClick} className="capitalize block">{itemTitle}</span>
         {toggleIcon}
-        <span onClick={handleClick} className="capitalize block lg:inline xl:inline">{itemTitle}</span>
       </>
     )
   }
@@ -84,22 +84,21 @@ const TodoCard:
     return (
       <div className={`${completedClass} card border-solid border-b-4`}>
         <div className="">
-          <button onClick={() => handleCompleteTodo(todo.id)}>
-            <FontAwesomeIcon icon={toggleIcon} className='w-7 h-7 inline ml-1 mr-1' />
-          </button>
-          <button onClick={() => handleDeleteTodo(todo.id)}>
-            <FontAwesomeIcon icon={faTrash} className='w-5 h-5 inline ml-1 mr-1' />
-          </button>
           <ItemComponent
             isEditing={isEditing}
             setTitle={setTitle}
             itemTitle={title}
             setEditing={setEditing}
           />
+          <button title="Toggle TODO completion" onClick={() => handleCompleteTodo(todo.id)}>
+            <FontAwesomeIcon icon={toggleIcon} className='w-7 h-7 inline ml-1 mr-1' />
+          </button>
+          <button onClick={() => handleDeleteTodo(todo.id)}>
+            <FontAwesomeIcon title="Delete TODO" icon={faTrash} className='w-5 h-5 inline ml-1 mr-1' />
+          </button>
         </div>
       </div>
     )
-
   }
 
 export default TodoCard
